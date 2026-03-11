@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler Piron | TylerLearnsAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --accent: #06b6d4;
+            --accent-light: #22d3ee;
+            --bg: #fafafa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --gradient: linear-gradient(135deg, #6366f1, #06b6d4);
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- NAV ---- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.15rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ---- HERO (compact) ---- */
+        .hero {
+            padding: 88px 24px 0;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .hero-left h1 .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left p {
+            font-size: 0.92rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .hero-right {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+        }
+
+        .btn-outline {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .btn-sm {
+            padding: 8px 18px;
+            font-size: 0.85rem;
+        }
+
+        /* ---- SECTION BASE ---- */
+        section {
+            padding: 80px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            max-width: 560px;
+            margin-bottom: 48px;
+            font-size: 1.05rem;
+        }
+
+        /* ---- TOOLS ---- */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .tool-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.4rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tool-card p {
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        /* ---- PROJECTS ---- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.25s;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+
+        .project-preview {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-preview.snake-bg {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+        }
+
+        .project-preview.barcrawl-bg {
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
+        }
+
+        .project-preview.coming-soon-bg {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        }
+
+        .project-preview-text {
+            font-size: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .project-preview .preview-label {
+            font-size: 1rem;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .project-preview .coming-label {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .project-info {
+            padding: 24px;
+        }
+
+        .project-info h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .project-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.08));
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .project-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.live { background: #22c55e; }
+        .status-dot.building { background: #f59e0b; }
+        .status-dot.soon { background: var(--border); }
+
+        /* ---- ABOUT ---- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .highlight-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .highlight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(6,182,212,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .highlight-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .highlight-item p {
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        /* ---- FOOTER ---- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .footer-note .ai-tag {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 768px) {
+            .nav-links { gap: 20px; }
+            .about-content { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero { padding: 80px 24px 0; flex-direction: column; align-items: flex-start; gap: 12px; }
+            section { padding: 60px 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links { display: none; }
+            .hero { padding: 76px 24px 0; }
+            .hero-left h1 { font-size: 1.25rem; }
+        }
+
+        /* ---- SMOOTH SCROLL ---- */
+        html { scroll-behavior: smooth; }
+
+        /* ---- FADE IN ANIMATION ---- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-logo">TylerLearnsAI</div>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="https://x.com/TylerLearnsAI" target="_blank">𝕏</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO (compact) -->
+    <div class="hero">
+        <div class="hero-left">
+            <h1>Tyler Piron · <span class="gradient-text">I build with AI.</span></h1>
+            <p>Computer Engineer — shipping projects with Claude &amp; Perplexity</p>
+        </div>
+        <div class="hero-right">
+            <a href="https://x.com/TylerLearnsAI" target="_blank" class="btn btn-outline btn-sm">
+                <span>𝕏 Follow</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="fade-in" style="padding-top: 40px;">
+        <div class="section-label">Projects</div>
+        <h2 class="section-title">What I've been building</h2>
+        <p class="section-desc">Real apps and experiments built with AI tools. Each project is a learning experience — and a showcase of what's possible.</p>
+
+        <div class="projects-grid">
+
+            <!-- SNAKE GAME -->
+            <div class="project-card">
+                <div class="project-preview snake-bg">
+                    <span class="project-preview-text">🐍</span>
+                </div>
+                <div class="project-info">
+                    <h3>Snake Game</h3>
+                    <p>Classic snake game rebuilt with a modern twist. Designed and developed entirely with AI assistance — playable right in the browser.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML Canvas</span>
+                        <span class="tag">Claude</span>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-dot building"></span>
+                        <span>Polishing — coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BAR-CRAWL -->
+            <div class="project-card">
+                <div class="project-preview barcrawl-bg">
+                    <span class="project-preview-text">🍻</span>
+                </div>
+                <div class="project-info">
+                    <h3>Bar-Crawl</h3>
+                    <p>Plan the perfect night out. Smart route optimization between bars, group coordination, photo sharing, and deal discovery — all in one app.</p>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">OpenStreetMap</span>
+                        <span class="tag">SaaS</span>
+                        <span class="tag">Claude</span>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-dot building"></span>
+                        <span>In development</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMING SOON -->
+            <div class="project-card">
+                <div class="project-preview coming-soon-bg">
+                    <span class="coming-label">More coming soon...</span>
+                </div>
+                <div class="project-info">
+                    <h3>Next Project</h3>
+                    <p>Always building, always learning. Follow along on X to see what's next.</p>
+                    <div class="project-tags">
+                        <span class="tag">TBD</span>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-dot soon"></span>
+                        <span>Ideating</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section id="tools" class="fade-in">
+        <div class="section-label">Toolkit</div>
+        <h2 class="section-title">Built with the best AI tools</h2>
+        <p class="section-desc">Every project in this portfolio was developed with AI assistance. Here's what powers my workflow.</p>
+
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #D4A574, #C4956A);">✦</div>
+                <h3>Claude</h3>
+                <p>AI pair programmer & architect</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #22D3EE, #06B6D4);">◎</div>
+                <h3>Perplexity</h3>
+                <p>Research & fact-checking</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #818CF8, #6366F1);">⚡</div>
+                <h3>VS Code</h3>
+                <p>Development environment</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #F472B6, #EC4899);">△</div>
+                <h3>Vercel</h3>
+                <p>Hosting & deployment</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="fade-in">
+        <div class="section-label">About</div>
+        <h2 class="section-title">The person behind the projects</h2>
+
+        <div class="about-content">
+            <div class="about-text">
+                <p>I'm Tyler Piron — a Computer Engineer who believes AI is fundamentally changing how software gets built. Instead of just reading about it, I'm building with it every single day.</p>
+                <p>This portfolio is a living document of that journey. Every project here was built with AI assistance, and I share the process openly on X so others can learn alongside me.</p>
+                <p>Whether it's a game, a SaaS app, or a quick experiment — the goal is always the same: push the boundaries of what one engineer can build when they have the right AI tools in their corner.</p>
+            </div>
+            <div class="about-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🎓</div>
+                    <div>
+                        <h4>Computer Engineering Degree</h4>
+                        <p>Formal foundation in hardware & software</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🤖</div>
+                    <div>
+                        <h4>AI-First Development</h4>
+                        <p>Claude & Perplexity daily driver</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🚀</div>
+                    <div>
+                        <h4>Building in Public</h4>
+                        <p>Sharing the full journey on X</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">💡</div>
+                    <div>
+                        <h4>Product-Minded</h4>
+                        <p>Turning ideas into real, usable apps</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="https://x.com/TylerLearnsAI" target="_blank">𝕏 @TylerLearnsAI</a>
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+            </div>
+            <p class="footer-note">
+                © 2026 Tyler Piron · Built with <span class="ai-tag">AI</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCROLL ANIMATIONS -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
